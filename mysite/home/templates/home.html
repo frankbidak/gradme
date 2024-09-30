@@ -3,10 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Dynamic Page</title>
 </head>
 <body>
-    <h1>Welcome to the Home Page!</h1>
-    <p>This is a simple Django home page. Hello</p>
+    <h1>{{ greeting }}</h1>
+    <p>{{ description }}</p>
+
+    <h2>To-Do List:</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.task }} - Status: {{ task.status }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Submit Your Details:</h2>
+    <form method="POST" action="">
+        {% csrf_token %}  <!-- Security token -->
+        
+        {{ form.as_p }}  <!-- This renders the form automatically with <p> tags -->
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if submitted_name %}
+        <h3>Thank you, {{ submitted_name }}!</h3>
+        <p>Email: {{ submitted_email }}</p>
+        <p>Message: {{ submitted_message }}</p>
+    {% endif %}
 </body>
 </html>
